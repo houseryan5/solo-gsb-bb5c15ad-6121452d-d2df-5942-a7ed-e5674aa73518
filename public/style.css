@@ -1,0 +1,421 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: #f1f5f9;
+  color: #0f172a;
+  font-size: 14px;
+}
+
+header {
+  background: #0f172a;
+  color: #fff;
+  padding: 10px 20px;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+header h1 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.subtitle {
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 300px 1fr 400px;
+  gap: 10px;
+  padding: 10px;
+  height: calc(100vh - 46px);
+}
+
+aside {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+}
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px 14px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+}
+
+.card.grow {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.card h2 {
+  font-size: 14px;
+  margin: 0 0 10px;
+  color: #334155;
+}
+
+.card h3 {
+  font-size: 13px;
+  margin: 14px 0 6px;
+  color: #475569;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 8px 0;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  color: #0f172a;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn:hover {
+  background: #f1f5f9;
+}
+
+.btn.primary {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #fff;
+}
+
+.btn.primary:hover {
+  background: #1d4ed8;
+}
+
+.btn.block {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.btn.tiny {
+  padding: 2px 8px;
+  font-size: 12px;
+}
+
+.btn.small-btn {
+  padding: 4px 10px;
+  font-size: 12px;
+}
+
+.danger-btn {
+  color: #dc2626;
+  border-color: #fecaca;
+}
+
+.danger-btn:hover {
+  background: #fef2f2;
+}
+
+.file-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.text,
+textarea {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 13px;
+  font-family: inherit;
+  margin: 4px 0;
+}
+
+.num {
+  width: 90px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 4px 6px;
+}
+
+.paste {
+  margin-top: 8px;
+}
+
+.paste summary {
+  cursor: pointer;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.muted {
+  color: #64748b;
+}
+
+.small {
+  font-size: 12px;
+}
+
+.danger {
+  color: #dc2626;
+}
+
+/* 图层列表 */
+.layers {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.layer-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.layer-item i,
+.legend-item i {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+/* 地图区 */
+main {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.map-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  background: #fff;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+  z-index: 2;
+}
+
+.map-wrap {
+  position: relative;
+  flex: 1;
+  background: #e2e8f0;
+  border-radius: 0 0 8px 8px;
+  overflow: hidden;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: grab;
+  background:
+    linear-gradient(#e2e8f0 0 0),
+    repeating-linear-gradient(0deg, transparent 0 39px, rgba(100, 116, 139, 0.15) 39px 40px),
+    repeating-linear-gradient(90deg, transparent 0 39px, rgba(100, 116, 139, 0.15) 39px 40px);
+  background-color: #e2e8f0;
+}
+
+#map.grabbing {
+  cursor: grabbing;
+}
+
+.zone-path {
+  cursor: pointer;
+}
+
+.conflict-path {
+  cursor: pointer;
+}
+
+.tooltip {
+  position: absolute;
+  background: rgba(15, 23, 42, 0.92);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 10;
+  max-width: 260px;
+  line-height: 1.5;
+}
+
+.legend {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.15);
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* 结果区 */
+.scroll {
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.card.grow .scroll {
+  flex: 1;
+}
+
+.conflict-item,
+.cluster-item,
+.saved-item {
+  border: 1px solid #e2e8f0;
+  border-left: 3px solid #e11d48;
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.conflict-item {
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.conflict-item:hover {
+  background: #fff1f2;
+}
+
+.conflict-item.active {
+  background: #ffe4e6;
+  border-left-width: 5px;
+}
+
+.cluster-item {
+  border-left-color: #7c3aed;
+}
+
+.saved-item {
+  border-left-color: #2563eb;
+}
+
+.conflict-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge {
+  background: #e11d48;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 11px;
+  padding: 1px 6px;
+  font-weight: 600;
+}
+
+.badge.group {
+  background: #7c3aed;
+}
+
+.chip {
+  display: inline-block;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 0 8px;
+  font-size: 12px;
+  background: #f8fafc;
+}
+
+.suggestion {
+  color: #166534;
+  background: #f0fdf4;
+  border-radius: 4px;
+  padding: 4px 6px;
+}
+
+table.plan {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+table.plan th,
+table.plan td {
+  border: 1px solid #e2e8f0;
+  padding: 3px 6px;
+  text-align: left;
+}
+
+table.plan th {
+  background: #f8fafc;
+  color: #475569;
+}
+
+table.plan tr.shifted td {
+  background: #fffbeb;
+}
+
+.warn-item {
+  color: #b45309;
+  padding: 2px 0;
+}
+
+.saved-name {
+  font-weight: 600;
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0f172a;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  z-index: 100;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.3);
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media (max-width: 1200px) {
+  .layout {
+    grid-template-columns: 260px 1fr 320px;
+  }
+}

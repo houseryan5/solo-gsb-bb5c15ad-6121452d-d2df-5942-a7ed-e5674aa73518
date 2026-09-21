@@ -1,0 +1,15 @@
+services:
+  conflict-analyzer:
+    build: .
+    image: construction-conflict-analyzer
+    container_name: conflict-analyzer
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+    volumes:
+      - analyses-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  analyses-data:

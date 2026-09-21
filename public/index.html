@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>临时施工区域冲突分析台</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <h1>🚧 临时施工区域冲突分析台</h1>
+    <span class="subtitle">时空重叠检测 · 面积排序 · 错峰调度建议</span>
+  </header>
+
+  <div class="layout">
+    <!-- 左栏：数据导入 / 图层筛选 / 保存导出 -->
+    <aside class="sidebar">
+      <section class="card">
+        <h2>1. 导入区域数据</h2>
+        <div class="row">
+          <label class="btn file-btn">
+            选择 GeoJSON 文件
+            <input type="file" id="fileInput" accept=".geojson,.json,application/geo+json,application/json" hidden>
+          </label>
+          <button id="sampleBtn" class="btn">载入示例数据</button>
+        </div>
+        <details class="paste">
+          <summary>或粘贴 GeoJSON 文本</summary>
+          <textarea id="pasteArea" rows="5" placeholder='{"type":"FeatureCollection","features":[...]}'></textarea>
+          <button id="pasteBtn" class="btn">解析并载入</button>
+        </details>
+        <div id="dataInfo" class="muted small"></div>
+      </section>
+
+      <section class="card">
+        <h2>2. 图层筛选与分析</h2>
+        <div id="layerList" class="layers muted small">导入数据后显示图层</div>
+        <label class="row small">
+          最小重叠面积阈值
+          <input type="number" id="minArea" value="0" min="0" step="100" class="num"> m²
+        </label>
+        <button id="analyzeBtn" class="btn primary block">开始分析</button>
+      </section>
+
+      <section class="card">
+        <h2>3. 保存 / 导出</h2>
+        <input type="text" id="analysisName" placeholder="分析名称（可选）" class="text">
+        <div class="row">
+          <button id="saveBtn" class="btn">保存分析</button>
+          <button id="exportBtn" class="btn">导出 GeoJSON 报告</button>
+        </div>
+        <h3>已保存的分析</h3>
+        <div id="savedList" class="saved muted small">暂无</div>
+      </section>
+    </aside>
+
+    <!-- 中栏：地图 -->
+    <main>
+      <div class="map-toolbar">
+        <button id="fitBtn" class="btn small-btn">复位视图</button>
+        <span class="muted small">滚轮缩放 · 拖拽平移 · 点击图形查看详情</span>
+      </div>
+      <div class="map-wrap">
+        <svg id="map" preserveAspectRatio="xMidYMid meet"></svg>
+        <div id="tooltip" class="tooltip hidden"></div>
+        <div id="legend" class="legend"></div>
+      </div>
+    </main>
+
+    <!-- 右栏：结果 -->
+    <aside class="results">
+      <section class="card">
+        <h2>分析概览</h2>
+        <div id="summary" class="muted small">尚未分析</div>
+      </section>
+      <section class="card grow">
+        <h2>冲突列表（按重叠面积降序）</h2>
+        <div id="conflictList" class="scroll muted small">暂无冲突</div>
+      </section>
+      <section class="card">
+        <h2>冲突群组与错峰排布</h2>
+        <div id="clusterList" class="scroll muted small">暂无</div>
+      </section>
+      <section class="card" id="warningCard" hidden>
+        <h2>数据警告</h2>
+        <div id="warnings" class="scroll small"></div>
+      </section>
+    </aside>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+  <script src="/app.js"></script>
+</body>
+</html>
